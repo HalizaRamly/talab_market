@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1058305371964",
+    "firebase_url": "https://talab-app.firebaseio.com",
+    "project_id": "talab-app",
+    "storage_bucket": "talab-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058305371964:android:efe9f3e74c3981a1fd3839",
+        "android_client_info": {
+          "package_name": "net.isratechno.talab_market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058305371964-b3oe6jiraav5fj9kj3lg7kgbpemv8c6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCALbQAe2yBRcvsIKdBYcSPNdSYUFYK558"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058305371964-b3oe6jiraav5fj9kj3lg7kgbpemv8c6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
