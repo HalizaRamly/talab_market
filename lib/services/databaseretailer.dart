@@ -12,7 +12,7 @@ class DataRetailer {
 
 
 
-  Future<void> updateRetailerData(String email, String name, String phone,String photo) async {
+  Future<void> updateRetailerData(String email, String name, String phone,String photo, var buy) async {
 
 
     final ffff= await talabCollection.add({
@@ -20,6 +20,7 @@ class DataRetailer {
       'name': name,
       'phone': phone,
       'photo':photo,
+      'buy': buy,
     });
   return await talabCollection.document(ffff.documentID).updateData({
     'id': ffff.documentID}

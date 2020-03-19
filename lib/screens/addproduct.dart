@@ -6,15 +6,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:talab_market/services/auth.dart';
-import 'package:talab_market/services/databaseretailer.dart';
+import 'package:talab_market/services/databaseproduct.dart';
 import 'package:talab_market/shared/constants.dart';
 
-class Addretailer extends StatefulWidget {
+class Addproduct extends StatefulWidget {
   @override
-  AddretailerState createState() => AddretailerState();
+  AddproductState createState() => AddproductState();
 }
 
-class AddretailerState extends State<Addretailer> {
+class AddproductState extends State<Addproduct> {
   //final AuthService1 _auth = AuthService1();
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -22,13 +22,10 @@ class AddretailerState extends State<Addretailer> {
   final AuthService _auth = AuthService();
 
   // text field state
-  String name = '';
-  String email = '';
-  String password = '';
-  String phone = '';
-  String privilege = '';
+double price=0;
   String photo='';
-  List buy=[];
+  int    quantity=0;
+  String name='';
 
   File _image;
 
@@ -44,7 +41,7 @@ class AddretailerState extends State<Addretailer> {
   Future uploadPic(BuildContext context) async {
     String fileName = basename(_image.path);
     StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(fileName);
+    FirebaseStorage.instance.ref().child(fileName);
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
     StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
     var dowurl =  await ((taskSnapshot).ref.getDownloadURL());
@@ -57,35 +54,36 @@ class AddretailerState extends State<Addretailer> {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Form(
         key: _formKey,
         child: ListView(
           children: <Widget>[
             SizedBox(height: 20.0),
             TextFormField(
-              decoration: textInputDecoration.copyWith(hintText: 'name'),
-              validator: (val) => val.isEmpty ? 'Enter retailer name' : null,
+              decoration: textInputDecoration.copyWith(hintText: 'Product name'),
+              validator: (val) => val.isEmpty ? 'Enter Product name' : null,
               onChanged: (val) {
                 setState(() => name = val);
               },
             ),
             SizedBox(height: 20.0),
             TextFormField(
-              decoration: textInputDecoration.copyWith(hintText: 'email'),
-              validator: (val) => val.isEmpty ? 'Enter retailer email' : null,
+              decoration: textInputDecoration.copyWith(hintText: 'quantity'),
+              validator: (val) => val.isEmpty ? 'Enter Product quantity' : null,
               onChanged: (val) {
-                setState(() => email = val);
+                setState(() => quantity = int.parse(val));
               },
             ),
             SizedBox(height: 20.0),
             TextFormField(
-              decoration: textInputDecoration.copyWith(hintText: 'Phone'),
-              validator: (val) => val.isEmpty ? 'Enter retailer Phone' : null,
+              decoration: textInputDecoration.copyWith(hintText: 'price'),
+              validator: (val) => val.isEmpty ? 'Enter Product price' : null,
               onChanged: (val) {
-                setState(() => phone = val);
+                setState(() => price = double.parse(val));
               },
             ),
+
             SizedBox(height: 20.0),
             Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -100,15 +98,15 @@ class AddretailerState extends State<Addretailer> {
                 )),
             (_image != null)
                 ? Image.file(
-                    _image,
+              _image,
               height: 50,
               width: 50,
-                  )
+            )
                 : Image.network(
-                    "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                height: 50,
+              "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+              height: 50,
               width: 50,
-                  ),
+            ),
 
             RaisedButton(
                 color: Colors.pink[400],
@@ -121,12 +119,10 @@ class AddretailerState extends State<Addretailer> {
 
                   if (_formKey.currentState.validate()) {
                     setState(() => loading = true);
-                    dynamic result = DataRetailer().updateRetailerData(
-                      email,
-                      name,
-                      phone,
-                      photo,
-                      buy
+                    dynamic result = DataProduct().updateProductData(
+
+                        name, quantity,photo,price
+
                     );
 
                     Navigator.pop(context);

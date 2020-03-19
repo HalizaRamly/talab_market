@@ -4,8 +4,9 @@ import 'package:talab_market/models/retailer.dart';
 import 'package:talab_market/screens/retailertile.dart';
 
 class RetailerList extends StatefulWidget {
-  int visibility;
-  RetailerList({this.visibility});
+  final int visibility;
+
+  RetailerList({this.visibility,});
 
   @override
   _RetailerListState createState() => _RetailerListState();
@@ -20,7 +21,7 @@ class _RetailerListState extends State<RetailerList> {
     return ListView.builder(
       itemCount: retailers.length,
       itemBuilder: (context, index) {
-        return RetailerTile(retailers: retailers[index],visibility: widget.visibility);
+        return RetailerTile(retailers: retailers[index],visibility: widget.visibility,);
       },
     );
   }

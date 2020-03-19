@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:talab_market/screens/product.dart';
 import 'package:talab_market/screens/retailer.dart';
+import 'package:talab_market/screens/setting.dart';
 import 'package:talab_market/services/auth.dart';
 import 'package:talab_market/shared/threedots.dart';
 
@@ -44,7 +44,14 @@ class Template2 extends StatelessWidget {
                 padding: EdgeInsets.all(2),
                 child: GestureDetector(
                     onTap: () {
-                      print("Container clicked");
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 60.0),
+                              child: Setting(),
+                            );
+                          });
                     },
                     child: Container(
                         color: Colors.teal[100],
@@ -70,7 +77,8 @@ class Template2 extends StatelessWidget {
                 padding: EdgeInsets.all(2),
                 child: GestureDetector(
                     onTap: () {
-                      print("Container clicked");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Product(visibility: 2,)));
                     },
                     child: Container(
                         color: Colors.teal[100],

@@ -1,18 +1,18 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EditRetailer {
+class EditProduct {
 
   final String id;
-  EditRetailer({this.id});
+  EditProduct({this.id});
 
 
   // collection reference
-  final CollectionReference talabCollection = Firestore.instance.collection('retailer');
+  final CollectionReference talabCollection = Firestore.instance.collection('product');
 
 
 
-  Future<void> deleteRetailerData() async {
+  Future<void> deleteProductData() async {
     return await talabCollection.document(id).delete();
   }
 

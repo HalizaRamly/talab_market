@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talab_market/models/retailer.dart';
-import 'package:talab_market/screens/retailertile.dart';
+import 'package:talab_market/models/product.dart';
+import 'package:talab_market/screens/producttile.dart';
 
 class ProductList extends StatefulWidget {
   int visibility;
@@ -15,12 +15,12 @@ class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
 
-    final retailers = Provider.of<List<RetailerData>>(context) ?? [];
+    final products = Provider.of<List<ProductData>>(context) ?? [];
 
     return ListView.builder(
-      itemCount: retailers.length,
+      itemCount: products.length,
       itemBuilder: (context, index) {
-        return RetailerTile(retailers: retailers[index],visibility: widget.visibility);
+        return ProductTile(products: products[index],visibility: widget.visibility);
       },
     );
   }

@@ -5,26 +5,29 @@ import 'package:talab_market/models/product.dart';
 import 'package:talab_market/screens/addproduct.dart';
 import 'package:talab_market/screens/producttile.dart';
 import 'package:talab_market/screens/productlist.dart';
+import 'package:talab_market/screens/purchaselist.dart';
 import 'package:talab_market/services/databaseproduct.dart';
 
-class Product extends StatefulWidget {
+class Purchase extends StatefulWidget {
 
   int visibility;
+  String id;
 
-  Product({this.visibility});
+  Purchase({this.id,this.visibility});
   @override
-  ProductState createState() => ProductState();
+  PurchaseState createState() => PurchaseState();
 }
 
-class ProductState extends State<Product> {
+class PurchaseState extends State<Purchase> {
   final _formKey1 = GlobalKey<FormState>();
 
   // form values
 
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     bool fort;
-    if(widget.visibility==2){
+    if(widget.visibility==1){
       fort= false;
     }
     else{
@@ -36,7 +39,7 @@ class ProductState extends State<Product> {
             appBar: new AppBar(
               title: new Text("Product"),
             ),
-            body: Center(child: ProductList(visibility:widget.visibility)),
+            body: Center(child: PurchaseList(visibility:widget.visibility,id:widget.id)),
 
             floatingActionButton:
             Visibility(
@@ -54,7 +57,7 @@ class ProductState extends State<Product> {
                       });
                   // Add your onPressed code here!
                 },
-                child: Icon(Icons.add),
+                child: Icon(Icons.check_circle),
                 backgroundColor: Colors.green,
               ),
             )

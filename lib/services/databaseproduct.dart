@@ -1,25 +1,26 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:talab_market/models/retailer.dart';
+import 'package:talab_market/models/product.dart';
 
-class DataRetailer {
+class DataProduct {
 
 
 
 
   // collection reference
-  final CollectionReference talabCollection = Firestore.instance.collection('retailer');
+  final CollectionReference talabCollection = Firestore.instance.collection('product');
 
 
 
-  Future<void> updateRetailerData(String email, String name, String phone,String photo) async {
+  Future<void> updateProductData( String name, int quantity,String photo, double price) async {
 
 
     final ffff= await talabCollection.add({
-      'email': email,
+
       'name': name,
-      'phone': phone,
+      'quantity': quantity,
       'photo':photo,
+      'price': price
     });
     return await talabCollection.document(ffff.documentID).updateData({
       'id': ffff.documentID}
@@ -36,12 +37,13 @@ class DataRetailer {
 
   // user data from snapshots
 
-  List <RetailerData> _userDataFromSnapshot(QuerySnapshot snapshot) {
+  List <ProductData> _userDataFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return RetailerData(
+      return ProductData(
         name: doc.data['name'] ?? "",
-        email: doc.data['email'] ?? "",
-        phone: doc.data['phone'] ?? "",
+        quantity: doc.data['quantity'],
+        price: doc.data['price'],
+
         photo: doc.data['photo'] ?? "",
         id : doc.data['id']?? "",
 
@@ -53,7 +55,7 @@ class DataRetailer {
 
 
   // get user doc stream
-  Stream<List<RetailerData>>get retailerData {
+  Stream<List<ProductData>>get productData{
     return talabCollection.snapshots()
         .map(_userDataFromSnapshot);
   }

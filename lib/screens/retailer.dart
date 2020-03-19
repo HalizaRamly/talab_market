@@ -8,9 +8,10 @@ import 'package:talab_market/services/databaseretailer.dart';
 
 class Retailer extends StatefulWidget {
 
-  int visibility;
+ final int visibility;
 
-  Retailer({this.visibility});
+
+  Retailer({this.visibility,});
   @override
   RetailerState createState() => RetailerState();
 }
@@ -35,7 +36,7 @@ class RetailerState extends State<Retailer> {
           appBar: new AppBar(
             title: new Text("Retailer"),
           ),
-          body: Center(child: RetailerList(visibility:widget.visibility)),
+          body: Center(child: RetailerList(visibility:widget.visibility, )),
 
           floatingActionButton:
           Visibility(
