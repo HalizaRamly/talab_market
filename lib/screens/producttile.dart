@@ -13,6 +13,13 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool fort;
+    if(products.quantity==0){
+      fort= false;
+    }
+    else{
+      fort= true;
+    }
 
     if(visibility==1){
       return Padding(
@@ -33,15 +40,23 @@ class ProductTile extends StatelessWidget {
               trailing:
               Column(
                 children: <Widget>[
+                Visibility(
+                visible:fort ,
+                    child:
                Expanded(child:
-                 IconButton(
-                     icon: Icon(Icons.delete),
-                     onPressed: () async {
-                       await EditProduct(id:products.id).deleteProductData();
 
 
-                     }),
-               ) ,
+
+          IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () async {
+          await EditProduct(id:products.id).deleteProductData();
+
+
+          }),
+
+
+               ) ),
                   Expanded(child:
                   new IconButton(
                       icon: new Icon(Icons.add),

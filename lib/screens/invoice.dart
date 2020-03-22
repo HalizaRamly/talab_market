@@ -1,7 +1,12 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:talab_market/models/retailer.dart';
-import 'package:talab_market/screens/pdf.dart';
 import 'package:talab_market/services/addproductdata.dart';
 import 'package:talab_market/services/editretailer.dart';
 import 'package:talab_market/shared/loading.dart';
@@ -21,6 +26,7 @@ class Invoice extends StatefulWidget {
 }
 
 class _InvoiceState extends State<Invoice> {
+  static GlobalKey screen = new GlobalKey();
   @override
   Widget build(BuildContext context) {
 
@@ -93,21 +99,25 @@ class _InvoiceState extends State<Invoice> {
                 title: Text("Invoice"),
               ),
               body:
+              RepaintBoundary(
+              key: screen,
+child:
 
-
-                  printpage(),
+                  printpage(),),
 
 
 
               floatingActionButton: FloatingActionButton(
                 onPressed: () async {
+                  await ScreenShot();
                   await Addproductdata(id: widget.id).deletesellData();
 
-                  printpdf();
+
 
 
                   // Add your onPressed code here!
                 },
+                tooltip: 'Increment',
                 child: Icon(Icons.picture_as_pdf),
                 backgroundColor: Colors.green,
               ),
@@ -116,5 +126,15 @@ class _InvoiceState extends State<Invoice> {
             return Loading();
           }
         });
+  }
+  ScreenShot() async{
+    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+
+    var filePath = await ImagePickerSaver.saveFile(
+        fileData:byteData.buffer.asUint8List() );
+    print(filePath);
+
   }
 }
