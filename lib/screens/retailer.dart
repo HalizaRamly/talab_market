@@ -34,7 +34,7 @@ class RetailerState extends State<Retailer> {
         value: DataRetailer().retailerData,
         child: Scaffold(
           appBar: new AppBar(
-            title: new Text("Rtailer"),
+            title: new Text("Retailer"),
           ),
           body: Center(child: RetailerList(visibility:widget.visibility, )),
 
