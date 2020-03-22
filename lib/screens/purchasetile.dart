@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talab_market/models/product.dart';
-import 'package:talab_market/screens/addproduct.dart';
-import 'package:talab_market/services/editproduct.dart';
-import 'package:talab_market/models/retailer.dart';
-import 'package:talab_market/services/editretailer.dart';
 import 'package:talab_market/services/addproductdata.dart';
+import 'package:talab_market/services/decreaseproduct.dart';
 
 class PurchaseTile extends StatefulWidget {
   final int visibility;
@@ -19,14 +16,16 @@ class PurchaseTile extends StatefulWidget {
 }
 
 class _PurchaseTileState extends State<PurchaseTile> {
-  var _itemCount = 1;
+  var _itemCount = 0;
   var total;
 
   Widget build(BuildContext context) {
-    print(widget.id);
-    if (_itemCount == 1) {
-      total = widget.products.price;
+
+    if (_itemCount == 0) {
+      total = 0;
     }
+    num balance = widget.products.quantity - _itemCount;
+    print (balance);
 
     if (widget.visibility == 2) {
       return Padding(
@@ -43,20 +42,31 @@ class _PurchaseTileState extends State<PurchaseTile> {
                     ),
                     title: Text(widget.products.name),
                     subtitle:
-                        Text('${widget.products.quantity}\nprice: $total'),
+                        Text('price: $total'),
                     trailing: IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () async {
-                          Addproductdata(
+                          if(_itemCount==0)
+                            return null;
+                         await Addproductdata(
                             id: widget.id,
                           ).updatesellData([{"id":widget.products.id, "name":widget.products.name,"price":widget.products.price,"quantity":widget.products.quantity}]);
+                         await Decreaseproduct(id: widget.products.id).updateproductData(balance);
+    setState(() {
+      _itemCount = 0;
+
+                         });
+
+
+
+
                         })),
               ),
               Container(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  _itemCount != 1
+                  _itemCount != 0
                       ? new IconButton(
                           icon: new Icon(Icons.remove),
                           onPressed: () => setState(() {
@@ -70,9 +80,11 @@ class _PurchaseTileState extends State<PurchaseTile> {
                   new IconButton(
                       icon: new Icon(Icons.add),
                       onPressed: () => setState(() {
+                        if(_itemCount<widget.products.quantity)
                             _itemCount++;
                             total = (_itemCount * widget.products.price)
                                 .toStringAsFixed(1);
+
                           }))
                 ],
               )),

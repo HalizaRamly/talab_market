@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talab_market/models/product.dart';
+import 'package:talab_market/services/decreaseproduct.dart';
 import 'package:talab_market/services/editproduct.dart';
 
 class ProductTile extends StatelessWidget {
@@ -29,13 +30,31 @@ class ProductTile extends StatelessWidget {
               subtitle: Text('Quantity: ${products.quantity}\nUnit price: ${products.price}' ),
 
 
-              trailing:IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () async {
-                    await EditProduct(id:products.id).deleteProductData();
+              trailing:
+              Column(
+                children: <Widget>[
+               Expanded(child:
+                 IconButton(
+                     icon: Icon(Icons.delete),
+                     onPressed: () async {
+                       await EditProduct(id:products.id).deleteProductData();
 
 
-                  })
+                     }),
+               ) ,
+                  Expanded(child:
+                  new IconButton(
+                      icon: new Icon(Icons.add),
+                      onPressed: () {
+                        Decreaseproduct(id: products.id).updateproductData(products.quantity+1);
+                      }
+
+                  ),
+                  ) ,
+                ],
+              )
+
+
 
           ),
         ),

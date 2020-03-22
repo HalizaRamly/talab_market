@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:talab_market/models/product.dart';
-import 'package:talab_market/screens/addproduct.dart';
-import 'package:talab_market/screens/producttile.dart';
-import 'package:talab_market/screens/productlist.dart';
+import 'package:talab_market/screens/invoice.dart';
 import 'package:talab_market/screens/purchaselist.dart';
 import 'package:talab_market/services/databaseproduct.dart';
 
@@ -12,8 +9,9 @@ class Purchase extends StatefulWidget {
 
   int visibility;
   String id;
+  String name;
 
-  Purchase({this.id,this.visibility});
+  Purchase({this.id,this.visibility,this.name});
   @override
   PurchaseState createState() => PurchaseState();
 }
@@ -46,15 +44,14 @@ class PurchaseState extends State<Purchase> {
               visible:fort ,
               child:           FloatingActionButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          padding:
-                          EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                          child: Addproduct(),
-                        );
-                      });
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Invoice(
+                            id: widget.id,
+                            name: widget.name
+
+                          )));
                   // Add your onPressed code here!
                 },
                 child: Icon(Icons.check_circle),

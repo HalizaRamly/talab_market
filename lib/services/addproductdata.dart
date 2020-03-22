@@ -19,7 +19,12 @@ class Addproductdata {
       'buy': FieldValue.arrayUnion(sell)
     });
   }
+  Future<void> deletesellData() async {
+    return await talabCollection.document(id).updateData({
 
+      'buy': null
+    });
+  }
 // brew list from snapshot
 
 // user data from snapshots

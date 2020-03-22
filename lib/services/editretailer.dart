@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:talab_market/models/retailer.dart';
 
 class EditRetailer {
 
@@ -15,7 +16,26 @@ class EditRetailer {
   Future<void> deleteRetailerData() async {
     return await talabCollection.document(id).delete();
   }
+  RetailerData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return RetailerData(
+        id: id,
+        name: snapshot.data['name']??"",
+        email: snapshot.data['email']??"",
+        phone: snapshot.data['phone']??"",
+      photo: snapshot.data['photo'],
+      buy: snapshot.data['buy']
 
+    );
+  }
+
+  // get brews stream
+
+
+  // get user doc stream
+  Stream<RetailerData> get userData {
+    return talabCollection.document(id).snapshots()
+        .map(_userDataFromSnapshot);
+  }
 
 // brew list from snapshot
 

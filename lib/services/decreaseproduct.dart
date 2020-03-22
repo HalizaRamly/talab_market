@@ -1,10 +1,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EditProduct {
+class Decreaseproduct {
 
   final String id;
-  EditProduct({this.id});
+
+  Decreaseproduct({this.id});
 
 
   // collection reference
@@ -12,12 +13,12 @@ class EditProduct {
 
 
 
-  Future<void> deleteProductData() async {
-    return await talabCollection.document(id).delete();
+  Future<void> updateproductData(var quantity) async {
+    return await talabCollection.document(id).updateData({
+
+      'quantity': quantity
+    });
   }
-
-
-
 
 // brew list from snapshot
 

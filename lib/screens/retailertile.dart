@@ -25,6 +25,7 @@ class RetailerTile extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => Purchase(
                               id: retailers.id,
+                              name: retailers.name,
                               visibility: 2,
                             )));
               },
