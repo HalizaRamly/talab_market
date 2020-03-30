@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talab_market/models/product.dart';
-import 'package:talab_market/screens/invoice.dart';
+import 'package:talab_market/screens/invoice2.dart';
 import 'package:talab_market/screens/purchaselist.dart';
 import 'package:talab_market/services/databaseproduct.dart';
 
@@ -49,7 +49,9 @@ class PurchaseState extends State<Purchase> {
                       MaterialPageRoute(
                           builder: (context) => Invoice(
                             id: widget.id,
-                            name: widget.name
+                            name: widget.name,
+
+
 
                           )));
                   // Add your onPressed code here!

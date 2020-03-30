@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
+
 import 'package:intl/intl.dart';
 import 'package:talab_market/models/retailer.dart';
 import 'package:talab_market/services/addproductdata.dart';
@@ -109,7 +109,7 @@ child:
 
               floatingActionButton: FloatingActionButton(
                 onPressed: () async {
-                  await ScreenShot();
+
                   await Addproductdata(id: widget.id).deletesellData();
 
 
@@ -127,14 +127,5 @@ child:
           }
         });
   }
-  ScreenShot() async{
-    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
-    ui.Image image = await boundary.toImage();
-    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
 
-    var filePath = await ImagePickerSaver.saveFile(
-        fileData:byteData.buffer.asUint8List() );
-    print(filePath);
-
-  }
 }

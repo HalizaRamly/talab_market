@@ -44,7 +44,7 @@ class _PurchaseTileState extends State<PurchaseTile> {
                     subtitle:
                         Text('price: $total'),
                     trailing: IconButton(
-                        icon: Icon(Icons.add),
+                        icon: Icon(Icons.check_circle),
                         onPressed: () async {
                           if(_itemCount==0)
                             return null;

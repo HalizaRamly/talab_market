@@ -15,10 +15,10 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     bool fort;
     if(products.quantity==0){
-      fort= false;
+      fort= true;
     }
     else{
-      fort= true;
+      fort= false;
     }
 
     if(visibility==1){
