@@ -1,10 +1,5 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-
 import 'package:intl/intl.dart';
 import 'package:talab_market/models/retailer.dart';
 import 'package:talab_market/services/addproductdata.dart';

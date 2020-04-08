@@ -3,18 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-
-import 'package:intl/intl.dart';
 import 'package:talab_market/models/retailer.dart';
 import 'package:talab_market/services/addproductdata.dart';
 import 'package:talab_market/services/editretailer.dart';

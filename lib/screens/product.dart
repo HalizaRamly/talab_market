@@ -3,7 +3,6 @@ import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:talab_market/models/product.dart';
 import 'package:talab_market/screens/addproduct.dart';
-import 'package:talab_market/screens/producttile.dart';
 import 'package:talab_market/screens/productlist.dart';
 import 'package:talab_market/services/databaseproduct.dart';
 
