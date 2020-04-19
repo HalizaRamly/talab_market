@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talab_market/models/retailer.dart';
 import 'package:talab_market/screens/purchase.dart';
@@ -32,8 +34,10 @@ class RetailerTile extends StatelessWidget {
               child: ListTile(
                   isThreeLine: true,
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(retailers.photo),
+                    backgroundImage: CachedNetworkImageProvider(retailers.photo),
+
                     radius: 25.0,
+
                   ),
                   title: Text(retailers.name),
                   subtitle: Text('${retailers.phone} \n${retailers.email}'),

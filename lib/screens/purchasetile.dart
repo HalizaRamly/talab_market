@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:talab_market/models/product.dart';
 import 'package:talab_market/services/addproductdata.dart';
@@ -37,7 +38,7 @@ class _PurchaseTileState extends State<PurchaseTile> {
                 child: ListTile(
                     isThreeLine: true,
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(widget.products.photo),
+                      backgroundImage: CachedNetworkImageProvider(widget.products.photo),
                       radius: 25.0,
                     ),
                     title: Text(widget.products.name),

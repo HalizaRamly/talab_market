@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:talab_market/models/product.dart';
 import 'package:talab_market/services/decreaseproduct.dart';
@@ -84,8 +85,9 @@ print(products.price);
           child: ListTile(
             isThreeLine:true,
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(products.photo),
+              backgroundImage: CachedNetworkImageProvider(products.photo),
               radius: 25.0,
+
 
             ),
             title: Text(products.name),
