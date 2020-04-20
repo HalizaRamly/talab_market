@@ -36,7 +36,7 @@ class RetailerTile extends StatelessWidget {
                   leading: CircleAvatar(
 
                     radius: 25.0,
-                    backgroundImage: CachedNetworkImageProvider(retailers.photo),
+                    backgroundImage:  CachedNetworkImageProvider(retailers.photo),
                   ),
                   title: Text(retailers.name),
                   subtitle: Text('${retailers.phone} \n${retailers.email}'),
