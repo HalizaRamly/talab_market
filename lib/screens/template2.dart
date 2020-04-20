@@ -10,10 +10,7 @@ class Template2 extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   void choiceAction(String choice) {
-    if (choice == Threedots.Settings) {
-    } else if (choice == Threedots.My_favorite) {
-    } else if (choice == Threedots.Product_for_sell) {
-    } else if (choice == Threedots.SignOut) {
+ if (choice == Threedots.SignOut) {
       _auth.signOut();
     }
   }
@@ -127,32 +124,7 @@ class Template2 extends StatelessWidget {
                             ),
                           )
                         ])))),
-            Padding(
-                padding: EdgeInsets.all(2),
-                child: GestureDetector(
-                    onTap: () {
-                      print("Container clicked");
-                    },
-                    child: Container(
-                        color: Colors.teal[100],
-                        padding: const EdgeInsets.all(20),
-                        child: Column(children: <Widget>[
-                          Expanded(
-                              flex: 3,
-                              child: Image.asset(
-                                "assets/purchase.png",
-                              )),
-                          Container(
-                            color: Colors.white70,
-                            child: const Text(
-                              "Purchase",
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        ])))),
+
           ],
         ));
   }

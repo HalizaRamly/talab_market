@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -18,68 +17,56 @@ class Invoice extends StatefulWidget {
   String id;
   String name;
 
-
-  Invoice({this.id,this.name});
+  Invoice({this.id, this.name});
 
   @override
   _InvoiceState createState() => _InvoiceState();
 }
 
 class _InvoiceState extends State<Invoice> {
-
-
-
-
-  Printtopdf()async{
+  Printtopdf() async {
     await Printing.sharePdf(bytes: pdf.save(), filename: 'my-document.pdf');
-     List list = [1, 2, 3];
+    List list = [1, 2, 3];
     List list2 = [0, ...list];
     print(list2);
-
-
-
+  }
+  String selectedRadio;
+  @override
+  void initState() {
+    super.initState();
+    selectedRadio = "Cash";
+  }
+  setSelectedRadio(String val) {
+    setState(() {
+      selectedRadio = val;
+    });
   }
 
   final pdf = pw.Document();
 
-  writeOnPdf(List baba){
-    List <List<String>> mama=[];
-    for (int i=0 ; i< baba.length; i++){
-    mama.add([baba[i]["name"], "${baba[i]["price"]}", "${baba[i]["quantity"]}","${baba[i]["total"]}"])  ;
+  writeOnPdf(List baba) {
+    List<List<String>> mama = [];
+    for (int i = 0; i < baba.length; i++) {
+      mama.add([
+        baba[i]["name"],
+        "${baba[i]["price"]}",
+        "${baba[i]["quantity"]}",
+        "${baba[i]["total"]}"
+      ]);
     }
 
-
-    pdf.addPage(
-        pw.MultiPage(
-          pageFormat: PdfPageFormat.a4,
-          margin: pw.EdgeInsets.all(32),
-          build: (pw.Context context){
-
-
-     return <pw.Widget>[
-
-       pw.Table.fromTextArray(context: context, data:
-         mama
-
-
-       ),
-
-       pw.Paragraph(text:"\n\nArabic Middle East Food"),
-       
-
-
-
-           ];
-
-
-
-          }
-
-
-        ));
+    pdf.addPage(pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: pw.EdgeInsets.all(32),
+        build: (pw.Context context) {
+          return <pw.Widget>[
+            pw.Table.fromTextArray(context: context, data: mama),
+            pw.Paragraph(text: "\n\nArabic Middle East Food"),
+          ];
+        }));
   }
 
-  Future savePdf() async{
+  Future savePdf() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     String documentPath = documentDirectory.path;
@@ -92,7 +79,6 @@ class _InvoiceState extends State<Invoice> {
   @override
   Widget build(BuildContext context) {
 
-
     num totalfinal = 0;
     return StreamBuilder<RetailerData>(
         stream: EditRetailer(id: widget.id).userData,
@@ -100,15 +86,15 @@ class _InvoiceState extends State<Invoice> {
           if (snapshot.hasData) {
             RetailerData userData = snapshot.data;
             List zaher = userData.buy;
-            if (zaher!= null){
+            if (zaher != null) {
               for (int i = 0; i < zaher.length; i++) {
                 Map mapsome = zaher[i];
 
                 num total = zaher[i]['price'] * zaher[i]['quantity'];
                 totalfinal = total + totalfinal;
                 mapsome["total"] = total;
-              }}
-            else{
+              }
+            } else {
               zaher = [];
             }
             zaher.add(
@@ -122,64 +108,98 @@ class _InvoiceState extends State<Invoice> {
             zaher.insert(0, {
               "name": "${widget.name}",
               "quantity": "${DateFormat.yMMMd().format(new DateTime.now())}",
-              "price": "",
+              "price": selectedRadio,
               "total": ""
             });
 
 
-
-            printpage() {
-
-
-              print(DateTime.now());
-              return
-
-
-                ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    color: Colors.black,
-                  ),
-                  itemCount: zaher.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(zaher[index]["name"]),
-                        ),
-                        Expanded(child: Text("${zaher[index]["price"]}")),
-                        Expanded(child: Text("${zaher[index]["quantity"]}")),
-                        Expanded(child: Text("${zaher[index]["total"]}")),
-                      ],
-                    ),
-                  ),
-                );
-            }
 
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.lightBlue,
                 title: Text("Invoice"),
               ),
-              body:
+              body: ListView(
+                children: <Widget>[
+                  Row(
 
+                    children: <Widget>[
 
-                printpage(),
+                      Radio(
+                        value: "Cash",
+                        groupValue: selectedRadio,
+                        activeColor: Colors.blue,
+                        onChanged: (val) {
+                          print("Radio $val");
+                          setSelectedRadio(val);
+                        },
+                      ),
+                      new Text(
+                        'Cash',
+                        style: new TextStyle(fontSize: 16.0,
+                            color: Colors.blue),
 
+                      ),
+                      Radio(
+                        value: 'cheque',
+                        groupValue: selectedRadio,
+                        activeColor: Colors.blue,
+                        onChanged: (val) {
 
+                          setSelectedRadio(val);
+                        },
+                      ),
+                      new Text(
+                        'cheque',
+                        style: new TextStyle(fontSize: 16.0,
+                            color: Colors.blue),
+                      ),
+                      Radio(
+                        value: "Online Transfer",
+                        groupValue: selectedRadio,
+                        activeColor: Colors.blue,
+                        onChanged: (val) {
 
+                          setSelectedRadio(val);
+                        },
+                      ),
+                      new Text(
+                        'Online Transfer',
+                        style: new TextStyle(fontSize: 16.0,
+                            color: Colors.blue),
+                      ),
+                    ],
+                  ),
 
+                  ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => Divider(
+                      color: Colors.black,
+                    ),
+                    itemCount: zaher.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(zaher[index]["name"]),
+                          ),
+                          Expanded(child: Text("${zaher[index]["price"]}")),
+                          Expanded(child: Text("${zaher[index]["quantity"]}")),
+                          Expanded(child: Text("${zaher[index]["total"]}")),
 
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () async {
-
                   await Addproductdata(id: widget.id).deletesellData();
                   writeOnPdf(zaher);
                   await savePdf();
                   Printtopdf();
-
-
-
 
                   // Add your onPressed code here!
                 },
@@ -193,5 +213,4 @@ class _InvoiceState extends State<Invoice> {
           }
         });
   }
-
 }

@@ -30,7 +30,7 @@ class ProductTile extends StatelessWidget {
           child: ListTile(
               isThreeLine:true,
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(products.photo),
+                backgroundImage: CachedNetworkImageProvider(products.photo),
                 radius: 25.0,
 
               ),
