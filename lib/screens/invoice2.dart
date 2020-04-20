@@ -84,131 +84,147 @@ class _InvoiceState extends State<Invoice> {
         stream: EditRetailer(id: widget.id).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            RetailerData userData = snapshot.data;
-            List zaher = userData.buy;
-            if (zaher != null) {
-              for (int i = 0; i < zaher.length; i++) {
-                Map mapsome = zaher[i];
+            try {
+              RetailerData userData = snapshot.data;
+              List zaher = userData.buy;
+              if (zaher != null) {
+                for (int i = 0; i < zaher.length; i++) {
+                  Map mapsome = zaher[i];
 
-                num total = zaher[i]['price'] * zaher[i]['quantity'];
-                totalfinal = total + totalfinal;
-                mapsome["total"] = total;
+                  num total = zaher[i]['price'] * zaher[i]['quantity'];
+                  totalfinal = total + totalfinal;
+                  mapsome["total"] = total;
+                }
+              } else {
+                zaher = [];
               }
-            } else {
-              zaher = [];
-            }
-            zaher.add(
-                {"name": "", "quantity": "", "price": "", "total": totalfinal});
-            zaher.insert(0, {
-              "name": "name",
-              "quantity": "quantity",
-              "price": "price",
-              "total": "total"
-            });
-            zaher.insert(0, {
-              "name": "${widget.name}",
-              "quantity": "${DateFormat.yMMMd().format(new DateTime.now())}",
-              "price": selectedRadio,
-              "total": ""
-            });
+              zaher.add(
+                  {
+                    "name": "",
+                    "quantity": "",
+                    "price": "",
+                    "total": totalfinal
+                  });
+              zaher.insert(0, {
+                "name": "name",
+                "quantity": "quantity",
+                "price": "price",
+                "total": "total"
+              });
+              zaher.insert(0, {
+                "name": "${widget.name}",
+                "quantity": "${DateFormat.yMMMd().format(new DateTime.now())}",
+                "price": selectedRadio,
+                "total": ""
+              });
 
 
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.lightBlue,
+                  title: Text("Invoice"),
+                ),
+                body: ListView(
+                  children: <Widget>[
+                    Row(
 
-            return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.lightBlue,
-                title: Text("Invoice"),
-              ),
-              body: ListView(
-                children: <Widget>[
-                  Row(
+                      children: <Widget>[
 
-                    children: <Widget>[
+                        Radio(
+                          value: "Cash",
+                          groupValue: selectedRadio,
+                          activeColor: Colors.blue,
+                          onChanged: (val) {
+                            print("Radio $val");
+                            setSelectedRadio(val);
+                          },
+                        ),
+                        new Text(
+                          'Cash',
+                          style: new TextStyle(fontSize: 16.0,
+                              color: Colors.blue),
 
-                      Radio(
-                        value: "Cash",
-                        groupValue: selectedRadio,
-                        activeColor: Colors.blue,
-                        onChanged: (val) {
-                          print("Radio $val");
-                          setSelectedRadio(val);
-                        },
-                      ),
-                      new Text(
-                        'Cash',
-                        style: new TextStyle(fontSize: 16.0,
-                            color: Colors.blue),
-
-                      ),
-                      Radio(
-                        value: 'cheque',
-                        groupValue: selectedRadio,
-                        activeColor: Colors.blue,
-                        onChanged: (val) {
-
-                          setSelectedRadio(val);
-                        },
-                      ),
-                      new Text(
-                        'cheque',
-                        style: new TextStyle(fontSize: 16.0,
-                            color: Colors.blue),
-                      ),
-                      Radio(
-                        value: "Online Transfer",
-                        groupValue: selectedRadio,
-                        activeColor: Colors.blue,
-                        onChanged: (val) {
-
-                          setSelectedRadio(val);
-                        },
-                      ),
-                      new Text(
-                        'Online Transfer',
-                        style: new TextStyle(fontSize: 16.0,
-                            color: Colors.blue),
-                      ),
-                    ],
-                  ),
-
-                  ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.black,
+                        ),
+                        Radio(
+                          value: 'cheque',
+                          groupValue: selectedRadio,
+                          activeColor: Colors.blue,
+                          onChanged: (val) {
+                            setSelectedRadio(val);
+                          },
+                        ),
+                        new Text(
+                          'cheque',
+                          style: new TextStyle(fontSize: 16.0,
+                              color: Colors.blue),
+                        ),
+                        Radio(
+                          value: "Online Transfer",
+                          groupValue: selectedRadio,
+                          activeColor: Colors.blue,
+                          onChanged: (val) {
+                            setSelectedRadio(val);
+                          },
+                        ),
+                        new Text(
+                          'Online Transfer',
+                          style: new TextStyle(fontSize: 16.0,
+                              color: Colors.blue),
+                        ),
+                      ],
                     ),
-                    itemCount: zaher.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(zaher[index]["name"]),
+
+                    ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) =>
+                          Divider(
+                            color: Colors.black,
                           ),
-                          Expanded(child: Text("${zaher[index]["price"]}")),
-                          Expanded(child: Text("${zaher[index]["quantity"]}")),
-                          Expanded(child: Text("${zaher[index]["total"]}")),
+                      itemCount: zaher.length,
+                      itemBuilder: (context, index) =>
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text(zaher[index]["name"]),
+                                ),
+                                Expanded(
+                                    child: Text("${zaher[index]["price"]}")),
+                                Expanded(
+                                    child: Text("${zaher[index]["quantity"]}")),
+                                Expanded(
+                                    child: Text("${zaher[index]["total"]}")),
 
-                        ],
-                      ),
+                              ],
+                            ),
+                          ),
                     ),
-                  ),
-                ],
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () async {
-                  await Addproductdata(id: widget.id).deletesellData();
-                  writeOnPdf(zaher);
-                  await savePdf();
-                  Printtopdf();
+                  ],
+                ),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () async {
+                    await Addproductdata(id: widget.id).deletesellData();
+                    writeOnPdf(zaher);
+                    await savePdf();
+                    setState(() {
+                      Printtopdf();
+                    });
 
-                  // Add your onPressed code here!
-                },
-                tooltip: 'Increment',
-                child: Icon(Icons.picture_as_pdf),
-                backgroundColor: Colors.green,
-              ),
-            );
-          } else {
+                    // Add your onPressed code here!
+                  },
+                  tooltip: 'Increment',
+                  child: Icon(Icons.picture_as_pdf),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
+
+          catch (e){return Loading();}
+          }
+
+
+          else {
             return Loading();
           }
         });

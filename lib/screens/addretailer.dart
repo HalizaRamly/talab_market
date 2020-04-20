@@ -28,7 +28,7 @@ class AddretailerState extends State<Addretailer> {
   String phone = '';
   String privilege = '';
   String photo='';
-  List buy=[];
+  List  buy=[];
 
   File _image;
 
