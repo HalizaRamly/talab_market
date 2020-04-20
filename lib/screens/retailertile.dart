@@ -34,10 +34,9 @@ class RetailerTile extends StatelessWidget {
               child: ListTile(
                   isThreeLine: true,
                   leading: CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(retailers.photo),
 
                     radius: 25.0,
-
+                    backgroundImage: CachedNetworkImageProvider(retailers.photo),
                   ),
                   title: Text(retailers.name),
                   subtitle: Text('${retailers.phone} \n${retailers.email}'),
@@ -57,8 +56,9 @@ class RetailerTile extends StatelessWidget {
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(retailers.photo),
               radius: 25.0,
+              backgroundImage: CachedNetworkImageProvider(retailers.photo),
+
             ),
             title: Text(retailers.name),
             subtitle: Text('${retailers.phone} \n${retailers.email} '),

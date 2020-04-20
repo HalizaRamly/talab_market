@@ -38,7 +38,8 @@ class _PurchaseTileState extends State<PurchaseTile> {
                 child: ListTile(
                     isThreeLine: true,
                     leading: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(widget.products.photo),
+                      backgroundImage: CachedNetworkImageProvider(widget.products.photo, ),
+
                       radius: 25.0,
                     ),
                     title: Text(widget.products.name),
@@ -99,7 +100,7 @@ class _PurchaseTileState extends State<PurchaseTile> {
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(widget.products.photo),
+              backgroundImage: CachedNetworkImageProvider(widget.products.photo),
               radius: 25.0,
             ),
             title: Text(widget.products.name),
