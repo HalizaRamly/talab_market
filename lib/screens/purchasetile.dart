@@ -46,13 +46,14 @@ class _PurchaseTileState extends State<PurchaseTile> {
                     subtitle:
                         Text('price: $total'),
                     trailing: IconButton(
-                        icon: Icon(Icons.check_circle),
+                        icon: Icon(Icons.check_circle,
+                        size: 40,),
                         onPressed: () async {
                           if(_itemCount==0)
                             return null;
                          await Addproductdata(
                             id: widget.id,
-                          ).updatesellData([{"id":widget.products.id, "name":widget.products.name,"price":widget.products.price,"quantity":widget.products.quantity}]);
+                          ).updatesellData([{"id":widget.products.id, "name":widget.products.name,"price":widget.products.price,"quantity":_itemCount}]);
                          await Decreaseproduct(id: widget.products.id).updateproductData(balance);
     setState(() {
       _itemCount = 0;

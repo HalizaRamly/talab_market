@@ -56,7 +56,7 @@ class DataProduct {
 
   // get user doc stream
   Stream<List<ProductData>>get productData{
-    return talabCollection.snapshots()
+    return talabCollection.orderBy("name").snapshots()
         .map(_userDataFromSnapshot);
   }
 

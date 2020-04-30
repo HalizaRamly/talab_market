@@ -35,7 +35,7 @@ class PurchaseState extends State<Purchase> {
         value: DataProduct().productData,
         child: Scaffold(
             appBar: new AppBar(
-              title: new Text("Product"),
+              title: new Text(widget.name),
             ),
             body: Center(child: PurchaseList(visibility:widget.visibility,id:widget.id)),
 

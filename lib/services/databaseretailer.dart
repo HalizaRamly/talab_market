@@ -55,7 +55,7 @@ class DataRetailer {
 
   // get user doc stream
   Stream<List<RetailerData>>get retailerData {
-    return talabCollection.snapshots()
+    return talabCollection.orderBy("name").snapshots()
         .map(_userDataFromSnapshot);
   }
 
